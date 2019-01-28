@@ -1,0 +1,22 @@
+#eureka:
+#    client:
+#        fetch-registry: true
+#        register-with-eureka: true
+#        service-url:
+#            defaultZone: http://localhost:9091/eureka/
+server:
+    port: 8088
+song:
+- null
+-   comment: The best song ever written
+    trackId: 1
+    trackName: Bohemian Rhapsody
+-   comment: Radio, we still love you
+    trackId: 2
+    trackName: Radio Ga Ga
+-   comment: My personal favorite
+    trackId: 3
+    trackName: Another one bites the dust
+spring:
+    application:
+        name: trackservice

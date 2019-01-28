@@ -1,0 +1,69 @@
+version : "3"
+services:
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    container_name: mongo
+    network_mode: host
+
+  eureka:
+    build: eureka-server/
+    restart: always
+    network_mode: host
+    container_name: eureka-service-docker
+    ports:
+      - "9091:9091"
+    expose:
+      - 9091
+
+  config:
+    build: config-server/
+    restart: always
+    network_mode: host
+    container_name: config-server-docker
+    ports:
+      - "8066:8066"
+    expose:
+      - 8066
+
+  track:
+    image: trackservice
+    build: MuzixApp/
+    restart: always
+    network_mode: host
+    hostname: localhost
+    container_name: track-service-docker
+    depends_on:
+      - config
+      - eureka
+
+    ports:
+      - "8088:8088"
+    expose:
+      - 8088
+
+  user:
+    image: userservice
+    build: Muzix Application/
+    restart: always
+    network_mode: host
+    container_name: user-service-docker
+    depends_on:
+      - config
+      - eureka
+    ports:
+      - "8484:8484"
+    expose:
+      - 8484
+
+  zuul:
+    image: zuulservice
+    build: Zuul/
+    restart: always
+    network_mode: host
+    container_name: zuul-service-docker
+    ports:
+      - "8085:8085"
+    expose:
+      - 8085
